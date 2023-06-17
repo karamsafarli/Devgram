@@ -11,7 +11,7 @@ export const connectToDB = async () => {
     }
 
     try {
-        await mongoose.connect(process.env.MONGODB_URI, {
+        await mongoose.connect(process.env.MONGODB_URI.toString(), {
             dbName: 'devgram',
             useNewUrlParser: true,
             useUnifiedTopology: true
