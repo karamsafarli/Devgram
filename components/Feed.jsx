@@ -12,11 +12,7 @@ const Feed = () => {
 
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/post', {
-      headers: {
-        'Cache-Control': 'no-cache'
-      }
-    });
+    const res = await fetch('/api/post');
     const data = await res.json();
     setPosts(data)
   }
