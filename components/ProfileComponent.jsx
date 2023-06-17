@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
+const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, handleLikes }) => {
 
 
   const darkmode = useSelector((state) => state.colorThemeReducer.value)
@@ -51,6 +51,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
                 handleDelete={() => handleDelete && handleDelete(post)}
                 handleEdit={() => handleEdit && handleEdit(post)}
                 handleTagClick={handleTagClick}
+                handleFollow={handleFollow}
+                handleLikes={handleLikes}
               />
             ))
         }

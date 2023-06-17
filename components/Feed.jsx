@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import PostCard from './PostCard';
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
-import { rewrites } from '@next.config';
 const Feed = () => {
 
   const [posts, setPosts] = useState([]);
@@ -13,7 +12,11 @@ const Feed = () => {
 
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/post');
+    const res = await fetch('/api/post', {
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
+    });
     const data = await res.json();
     setPosts(data)
   }

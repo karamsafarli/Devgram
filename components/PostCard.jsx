@@ -164,7 +164,6 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         fetchComments();
         setPostIsLiked(post.likes.includes(session?.user.id));
         setIsFollowing(post.author.followers.includes(session?.user.id));
-        console.log(postIsLiked);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user.id])
 

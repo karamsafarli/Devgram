@@ -11,19 +11,20 @@ const ProfilePage = () => {
     const [posts, setPosts] = useState([]);
     const router = useRouter();
 
+    const fetchPosts = async () => {
+        const res = await fetch(`/api/users/${session?.user.id}/posts`);
+        const data = await res.json();
+
+        setPosts(data)
+    }
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            const res = await fetch(`/api/users/${session?.user.id}/posts`);
-            const data = await res.json();
-
-            setPosts(data)
-        }
 
         if (session?.user.id) {
             fetchPosts()
         }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user.id])
 
     const handleEdit = async (post) => {
@@ -50,6 +51,44 @@ const ProfilePage = () => {
     }
 
 
+    const handleLikes = async (postid) => {
+
+        try {
+          const res = await fetch(`/api/post/likes/${postid}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              userId: session?.user.id,
+            })
+          });
+    
+          if (res.ok) {
+            fetchPosts();
+          }
+    
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    
+      const handleFollow = async (postID) => {
+        try {
+          const res = await fetch(`/api/post/${postID}/follow`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              userID: session?.user.id
+            })
+          });
+    
+          if (res.ok) {
+            fetchPosts()
+          }
+    
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+
     return (
         <Profile
             name='My'
@@ -57,6 +96,8 @@ const ProfilePage = () => {
             data={posts}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
+            handleLikes={handleLikes}
+            handleFollow={handleFollow}
         />
     )
 }

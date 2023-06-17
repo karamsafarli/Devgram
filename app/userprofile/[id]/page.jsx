@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
 import Profile from "@components/ProfileComponent";
-import { useSession } from 'next-auth/react';
 
 const UserProfiles = ({ params }) => {
 
@@ -13,6 +12,44 @@ const UserProfiles = ({ params }) => {
 
         return strlist.join(' ');
     }
+
+    const handleLikes = async (postid) => {
+
+        try {
+            const res = await fetch(`/api/post/likes/${postid}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    userId: session?.user.id,
+                })
+            });
+
+            if (res.ok) {
+                fetchPosts();
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleFollow = async (postID) => {
+        try {
+            const res = await fetch(`/api/post/${postID}/follow`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    userID: session?.user.id
+                })
+            });
+
+            if (res.ok) {
+                fetchPosts()
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     const [posts, setPosts] = useState([]);
     useEffect(() => {
@@ -32,6 +69,8 @@ const UserProfiles = ({ params }) => {
                 )
             }
             data={posts}
+            handleLikes={handleLikes}
+            handleFollow={handleFollow}
         />
     )
 }
