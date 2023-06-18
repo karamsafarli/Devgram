@@ -25,7 +25,7 @@ const ProfilePage = () => {
         }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [session?.user.id])
+    }, [])
 
     const handleEdit = async (post) => {
         router.push(`/update-post?id=${post._id}`)
