@@ -9,11 +9,13 @@ export const colorThemeSlice = createSlice({
         changemode: (state) => {
             state.value = !state.value
         },
-        localmode: (state,action) => {
+        localmode: (state, action) => {
             state.value = action.payload
         }
     }
-})
+});
+
+
 
 export const { changemode, localmode } = colorThemeSlice.actions;
 export default colorThemeSlice.reducer;

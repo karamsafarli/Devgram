@@ -1,25 +1,29 @@
 'use client'
 import { useState, useEffect } from 'react';
 import PostCard from './PostCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPosts } from '@redux/features/postslice';
 import { useSession } from 'next-auth/react';
 const Feed = () => {
 
-  const [posts, setPosts] = useState([]);
+ // const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
   const darkmode = useSelector((state) => state.colorThemeReducer.value);
+  const allPosts = useSelector((state) => state.posts.data)
   const { data: session } = useSession();
 
 
 
-  const fetchPosts = async () => {
-    const res = await fetch('/api/post', { cache: 'no-store' });
-    const data = await res.json();
-    setPosts(data)
-  }
+  // const fetchPosts = async () => {
+  //   const res = await fetch('https://devgram-7dnk.vercel.app/api/post',{cache: 'no-store'});
+  //   const data = await res.json();
+  //   setPosts(data)
+  // }
 
   useEffect(() => {
-    fetchPosts()
-  }, [])
+    dispatch(fetchPosts())
+    //fetchPosts()
+  }, [dispatch])
 
 
 
@@ -48,7 +52,8 @@ const Feed = () => {
       });
 
       if (res.ok) {
-        fetchPosts();
+        dispatch(fetchPosts())
+        // fetchPosts()
       }
 
     } catch (error) {
@@ -66,7 +71,8 @@ const Feed = () => {
       });
 
       if (res.ok) {
-        fetchPosts()
+        dispatch(fetchPosts())
+        //fetchPosts()
       }
 
     } catch (error) {
@@ -85,7 +91,7 @@ const Feed = () => {
         style={{ backgroundColor: darkmode ? '#1D2226' : 'white' }}
       />
       {
-        posts
+        allPosts
           .filter((post) => {
             return (
               post.text.toLowerCase().includes(search) ||

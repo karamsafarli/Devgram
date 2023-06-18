@@ -162,11 +162,15 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
     useEffect(() => {
         fetchComments();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
         setPostIsLiked(post.likes.includes(session?.user.id));
         setIsFollowing(post.author.followers.includes(session?.user.id));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user.id])
-
+    
 
 
     return (
