@@ -41,15 +41,15 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         }, 3000);
     }
 
-    const fetchComments = async () => {
-        try {
-            const res = await fetch(`/api/comment/${post._id}`);
-            const data = await res.json();
-            setComment(data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const fetchComments = async () => {
+    //     try {
+    //         const res = await fetch(`/api/comment/${post._id}`);
+    //         const data = await res.json();
+    //         setComment(data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 
     const addComment = async (e) => {
@@ -146,9 +146,9 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         }
     }
 
-    let replyLength = 0;
-    comment.map((el) => replyLength += el.replies.length)
-    let commentLength = comment.length + replyLength;
+    // let replyLength = 0;
+    // comment.map((el) => replyLength += el.replies.length)
+    // let commentLength = comment.length + replyLength;
 
 
 
@@ -160,10 +160,10 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         handleFollow(post._id);
     }
 
-    useEffect(() => {
-        fetchComments();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // useEffect(() => {
+    //     fetchComments();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     useEffect(() => {
         setPostIsLiked(post.likes.includes(session?.user.id));
@@ -270,7 +270,7 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
             }
 
-            <div className="comments" style={{ display: toggleComment ? 'block' : 'none' }}>
+            {/* <div className="comments" style={{ display: toggleComment ? 'block' : 'none' }}>
                 <form onSubmit={addComment}>
                     <input type="text"
                         placeholder='Add a comment...'
@@ -308,7 +308,7 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
                 }
 
-            </div>
+            </div> */}
         </div>
     )
 }
