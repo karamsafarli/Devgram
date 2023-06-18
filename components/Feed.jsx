@@ -12,7 +12,7 @@ const Feed = () => {
 
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/post');
+    const res = await fetch('/api/post', { next: { revalidate: 0 }});
     const data = await res.json();
     setPosts(data)
   }
