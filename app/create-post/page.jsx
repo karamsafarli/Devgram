@@ -3,10 +3,13 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation'
 import Form from '@components/Form';
+import { fetchPosts } from '@redux/features/postslice';
+import { useDispatch } from 'react-redux';
 
 const CreatePost = () => {
 
   const [submitting, setSubmitting] = useState(false);
+  const dispatch = useDispatch();
   const [post, setPost] = useState({
     text: '',
     tag: '',
@@ -34,6 +37,7 @@ const CreatePost = () => {
 
       if (res.ok) {
         router.push('/');
+        dispatch(fetchPosts())
       }
     } catch (err) {
       console.log(err);
