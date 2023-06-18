@@ -253,9 +253,9 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
                 <div className="comments_btn" onClick={() => setToggleComment((prev) => !prev)}>
                     <BsChat />
-                    <span>
+                    {/* <span>
                         {commentLength}
-                    </span>
+                    </span> */}
                 </div>
             </div>
 
