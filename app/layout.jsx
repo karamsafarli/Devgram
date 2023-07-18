@@ -1,4 +1,3 @@
-'use client'
 import '@styles/globals.css';
 import '@styles/style.scss';
 import { Providers } from '@redux/provider';
@@ -7,8 +6,8 @@ import App from '@components/App';
 
 
 export const metadata = {
-    title: 'portfolio.az',
-    description: 'Share your portfolio and get hired!',
+    title: 'Devgram',
+    description: 'Instagram for developers!',
 }
 
 const RootLayout = ({ children }) => {
