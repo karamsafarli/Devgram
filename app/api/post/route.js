@@ -1,7 +1,7 @@
 import { connectToDB } from "@utils/database";
 import Post from "@models/post";
 
-export const POST = async (req, res) => {
+export const GET = async (req, res) => {
     try {
         await connectToDB();
         const allPosts = await Post.find().sort({ createdAt: -1 }).populate('author');
