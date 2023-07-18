@@ -4,7 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     try {
         const res = await fetch('/api/post', {
-            method: 'POST'
+            method: 'POST',
+            body: JSON.stringify({ data: 'posts' })
         });
         const data = await res.json();
         return data
