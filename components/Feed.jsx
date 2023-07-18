@@ -31,6 +31,7 @@ const Feed = () => {
 
   const handleTagClick = (tag) => {
     setSearch(tag)
+    window.scrollTo(0,0)
   }
 
   const handleHashtags = (tags) => {

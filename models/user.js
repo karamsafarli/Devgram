@@ -14,15 +14,15 @@ const userSchema = new Schema({
     image: {
         type: String
     },
-    followers: {
-        type: Array,
-        default: []
-    },
-    followings: {
-        type: Array,
-        default: []
-    }
+    followers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    followings: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
-const User = models.User || model('User',userSchema);
+const User = models.User || model('User', userSchema);
 export default User

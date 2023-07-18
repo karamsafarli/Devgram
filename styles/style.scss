@@ -2,6 +2,9 @@
   font-family: 'Poppins', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 .logo-text {
   font-size: 24px;
@@ -193,6 +196,7 @@
     input {
       margin-bottom: 10px;
     }
+
     .form_btns {
       //margin-top: 10px;
       display: flex;
@@ -261,10 +265,12 @@
 
     .follow_btn {
       border-radius: 5px;
-      width: 70px;
+      width: 80px;
       height: 35px;
-      background-color: transparent;
+      background-color: #2f9dec;
+      color: white;
       font-size: 13px;
+      font-weight: 500;
     }
   }
 
@@ -371,8 +377,10 @@
 }
 
 .profile {
-  margin: 30px auto 0 auto;
+  margin: 20px auto 0 auto;
   max-width: 600px;
+  // overflow-x: hidden;
+  // overflow-y: auto;
 
   h1 {
     margin: 0 !important;
@@ -382,11 +390,56 @@
     font-size: 20px;
     margin-bottom: 30px;
   }
+
+  .tab_container {
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+    margin-bottom: 40px;
+
+    .tabs {
+      display: flex;
+      user-select: none;
+      position: sticky;
+      top: 0;
+
+      span {
+        flex: 1;
+        text-align: center;
+        padding: 18px 0;
+        cursor: pointer;
+        font-size: 20px;
+        transition: .1s;
+      }
+    }
+  }
+
+  .bottom_line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(33.3%);
+    height: 3px;
+    transition: .3s;
+  }
+
+  .tab_content_container {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    transition: .3s;
+
+    .posts_container,
+    .followers_container,
+    .following_container {
+      flex: 0 0 100%;
+    }
+  }
 }
 
 .btn-dark-hover {
   transition: .2s ease-in-out;
-  //border: 1px solid white;
 
   &:hover {
     color: white !important;
@@ -396,7 +449,6 @@
 
 .btn-light-hover {
   transition: .2s ease-in-out;
-  // border: 1px solid black;
 
   &:hover {
     background-color: transparent !important;
@@ -522,5 +574,35 @@
         background-color: rgba(128, 128, 128, 0.564);
       }
     }
+  }
+}
+
+
+
+.follower-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  width: 80%;
+  margin: 0 auto;
+  height: 75px;
+  padding: 0 25px;
+
+  .fc-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .follow_btn {
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    background-color: #2f9dec;
+    font-size: 13px;
+    color: white;
+
+    font-weight: bold;
   }
 }

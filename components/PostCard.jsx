@@ -41,15 +41,15 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         }, 3000);
     }
 
-    // const fetchComments = async () => {
-    //     try {
-    //         const res = await fetch(`/api/comment/${post._id}`);
-    //         const data = await res.json();
-    //         setComment(data);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    const fetchComments = async () => {
+        try {
+            const res = await fetch(`/api/comment/${post._id}`);
+            const data = await res.json();
+            setComment(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     const addComment = async (e) => {
@@ -146,9 +146,9 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         }
     }
 
-    // let replyLength = 0;
-    // comment.map((el) => replyLength += el.replies.length)
-    // let commentLength = comment.length + replyLength;
+    let replyLength = 0;
+    comment.map((el) => replyLength += el.replies.length)
+    let commentLength = comment.length + replyLength;
 
 
 
@@ -160,17 +160,17 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
         handleFollow(post._id);
     }
 
-    // useEffect(() => {
-    //     fetchComments();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
+    useEffect(() => {
+        fetchComments();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
-        setPostIsLiked(post.likes.includes(session?.user.id));
-        setIsFollowing(post.author.followers.includes(session?.user.id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+       setPostIsLiked(post.likes.includes(session?.user.id));
+     setIsFollowing(post.author.followers.includes(session?.user.id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user.id])
-    
+
 
 
     return (
@@ -204,9 +204,12 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
                     <button
                         className='follow_btn'
                         onClick={checkHandleFollow}
-                        style={{ 
-                            border: darkmode ? '1px solid white' : '1px solid black' ,
-                            opacity: isFollowing ? '0.6' : '1'
+                        style={{
+                            border: isFollowing ? (darkmode ? '1px solid white' : '1px solid black') : '',
+                            opacity: isFollowing ? '0.7' : '1',
+                            background: isFollowing ? 'transparent' : '',
+                            color: isFollowing ? (darkmode ? 'white' : 'black') : ''
+                            
                         }}
                     >
                         {isFollowing ? 'Unfollow' : 'Follow'}
@@ -253,9 +256,9 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
                 <div className="comments_btn" onClick={() => setToggleComment((prev) => !prev)}>
                     <BsChat />
-                    {/* <span>
+                    <span>
                         {commentLength}
-                    </span> */}
+                    </span>
                 </div>
             </div>
 
@@ -270,7 +273,7 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
 
             }
 
-            {/* <div className="comments" style={{ display: toggleComment ? 'block' : 'none' }}>
+            <div className="comments" style={{ display: toggleComment ? 'block' : 'none' }}>
                 <form onSubmit={addComment}>
                     <input type="text"
                         placeholder='Add a comment...'
@@ -304,11 +307,11 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
                                 handleReplyLikes={handleReplyLikes}
                             />
                         ))
-                    ) : 'Not any comments yet'
+                    ) : <h5>Not any comments yet</h5>
 
                 }
 
-            </div> */}
+            </div>
         </div>
     )
 }

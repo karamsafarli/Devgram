@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 const UserProfiles = ({ params }) => {
 
     const { data: session } = useSession();
+    const [user, setUser] = useState({})
     const capitalize = (name) => {
         const strlist = name.split(' ').map((str) => {
             return str[0].toUpperCase() + str.slice(1);
@@ -56,10 +57,17 @@ const UserProfiles = ({ params }) => {
         }
     }
 
+    const fetchFollowers = async () => {
+        const res = await fetch(`/api/users/${params.id}/follower`);
+        const data = await res.json()
+        setUser(data)
+
+    }
 
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         fetchData();
+        fetchFollowers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
@@ -73,6 +81,8 @@ const UserProfiles = ({ params }) => {
             data={posts}
             handleLikes={handleLikes}
             handleFollow={handleFollow}
+            followers={user.followers}
+            following={user.followings}
         />
     )
 }

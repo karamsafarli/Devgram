@@ -6,9 +6,13 @@ import SessionProviders from '@components/Provider';
 import App from '@components/App';
 
 
+export const metadata = {
+    title: 'portfolio.az',
+    description: 'Share your portfolio and get hired!',
+}
+
 const RootLayout = ({ children }) => {
     return (
-        <html lang='en'>
             <SessionProviders>
                 <Providers>
                     <App>
@@ -16,7 +20,6 @@ const RootLayout = ({ children }) => {
                     </App>
                 </Providers>
             </SessionProviders>
-        </html>
     )
 }
 
