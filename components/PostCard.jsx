@@ -166,8 +166,8 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
     }, [])
 
     useEffect(() => {
-       setPostIsLiked(post.likes.includes(session?.user.id));
-     setIsFollowing(post.author.followers.includes(session?.user.id));
+        setPostIsLiked(post.likes.includes(session?.user.id));
+        setIsFollowing(post.author.followers.includes(session?.user.id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user.id])
 
@@ -209,7 +209,7 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
                             opacity: isFollowing ? '0.7' : '1',
                             background: isFollowing ? 'transparent' : '',
                             color: isFollowing ? (darkmode ? 'white' : 'black') : ''
-                            
+
                         }}
                     >
                         {isFollowing ? 'Unfollow' : 'Follow'}
@@ -228,11 +228,16 @@ const PostCard = ({ post, handleTagClick, handleEdit, handleDelete, handleLikes,
                 </div> */}
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element*/}
-            <img
-                src={post.imageURL}
-                alt="post-image"
-                className='post_image'
-            />
+            {
+                post.imageURL && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={post.imageURL}
+                        alt="post-image"
+                        className='post_image'
+                    />
+                )
+            }
             <div className='card_text'>{post.text}</div>
             <div className='card_tags'>
                 {

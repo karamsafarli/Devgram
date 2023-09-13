@@ -20,8 +20,7 @@ const postSchema = new Schema({
         default: []
     },
     imageURL: {
-        type: String,
-        required: true
+        type: String
     }
 
 }, { timestamps: true })

@@ -2,7 +2,7 @@
 
 import PostCard from "./PostCard";
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import FollowerComponent from "./FollowerComponent";
 import { useSession } from "next-auth/react";
 
@@ -14,8 +14,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
   const darkmode = useSelector((state) => state.colorThemeReducer.value)
   const [search, setSearch] = useState('')
   const [tabIndex, setTabIndex] = useState(0)
-  const { data: session, status } = useSession()
-  const [sessionStatus, setSessionStatus] = useState('');
+  const { data: session } = useSession()
 
   const handleTagClick = (tag) => {
     setSearch(tag)
@@ -47,13 +46,6 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
   }
 
 
-  useEffect(() => {
-    console.log(status)
-    setSessionStatus(status)
-
-  }, [status])
-
-
   return (
     <div className="profile">
       <h1 className="header">{name} Profile</h1>
@@ -72,7 +64,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
 
       <div className="tab_content_container">
         {
-          tabIndex === 0 ? (
+          tabIndex === 0 && (
             <div className="posts_container">
               <input type="text"
                 className='search_post'
@@ -106,17 +98,25 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
                 }
               </div>
             </div>
-          ) : tabIndex === 1 ? (
+          )
+        }
+
+        {
+          tabIndex === 1 && (
             <div className="followers_container">
               {
-                sessionStatus === 'authenticated' ? (followers.map((el) => {
+                followers?.map((el) => {
                   return (
                     <FollowerComponent key={el._id} userInfo={el} checkHandleFollow={checkHandleFollow} />
                   )
-                })) : ''
+                })
               }
             </div>
-          ) : (
+          )
+        }
+
+        {
+          tabIndex === 2 && (
             <div className="following_container">
               {
                 following.map((el) => {
@@ -129,6 +129,65 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
           )
         }
 
+        {
+
+          // tabIndex === 0 ? (
+          //   <div className="posts_container">
+          //     <input type="text"
+          //       className='search_post'
+          //       onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          //       value={search}
+          //       placeholder='Search posts...'
+          //       style={{ backgroundColor: darkmode ? '#1D2226' : 'white' }}
+          //     />
+
+          //     <div className="user_posts">
+          //       {
+          //         data
+          //           .filter((el) => {
+          //             return (
+          //               el.text.toLowerCase().includes(search) ||
+          //               handleHashtags(el.tag).toLowerCase().includes(search) ||
+          //               el.author.username.toLowerCase().includes(search)
+          //             )
+          //           })
+          //           .map((post) => (
+          //             <PostCard
+          //               key={post._id}
+          //               post={post}
+          //               handleDelete={() => handleDelete && handleDelete(post)}
+          //               handleEdit={() => handleEdit && handleEdit(post)}
+          //               handleTagClick={handleTagClick}
+          //               handleFollow={handleFollow}
+          //               handleLikes={handleLikes}
+          //             />
+          //           ))
+          //       }
+          //     </div>
+          //   </div>
+          // ) : tabIndex === 1 ? (
+          //   <div className="followers_container">
+          //     {
+          //       followers?.map((el) => {
+          //         return (
+          //           <FollowerComponent key={el._id} userInfo={el} checkHandleFollow={checkHandleFollow} />
+          //         )
+          //       })
+          //     }
+          //   </div>
+          // ) : (
+          //   <div className="following_container">
+          //     {
+          //       following.map((el) => {
+          //         return (
+          //           <FollowerComponent key={el._id} userInfo={el} checkHandleFollow={checkHandleFollow} />
+          //         )
+          //       })
+          //     }
+          //   </div>
+          // )
+
+        }
 
       </div>
 

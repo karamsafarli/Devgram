@@ -7,15 +7,11 @@ import Profile from '@components/ProfileComponent'
 
 const ProfilePage = () => {
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   const router = useRouter();
   const [user, setUser] = useState({});
-  const [sessionStatus, setSessionStatus] = useState('')
-  useEffect(() => {
-    setSessionStatus(status)
-    console.log(status)
-  }, [status])
+  
 
 
   const fetchPosts = async () => {
@@ -105,22 +101,21 @@ const ProfilePage = () => {
     }
   }
 
-  if (status === 'authenticated') {
-    return (
-      <Profile
-        name='My'
-        desc='Welcome to your profile page'
-        data={posts}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-        handleLikes={handleLikes}
-        handleFollow={handleFollow}
-        followers={user.followers}
-        following={user.followings}
-      />
-    )
+  return (
+    <Profile
+      name='My'
+      desc='Welcome to your profile page'
+      data={posts}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      handleLikes={handleLikes}
+      handleFollow={handleFollow}
+      followers={user.followers}
+      following={user.followings}
+    />
+  )
 
-  }
+
 }
 
 export default ProfilePage
