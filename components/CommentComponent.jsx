@@ -10,7 +10,7 @@ const CommentComponent = ({ userimg, username, text, likes, link, handleCommentL
 
     const { data: session } = useSession();
     const [isLiked, setIsLiked] = useState(null);
-    const [showReplyInput, setShowReplyInput] = useState(false);
+    const [showReplyInput, setShowReplyInput] = useState(true);
     const [reply, setReply] = useState('');
     const inputRef = useRef(null);
     const [showReplies, setShowReplies] = useState(false);
