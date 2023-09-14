@@ -7,7 +7,7 @@ import { fetchPosts } from '@redux/features/postslice';
 import { useSession } from 'next-auth/react';
 const Feed = () => {
 
-  // const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const darkmode = useSelector((state) => state.colorThemeReducer.value);
   const allPosts = useSelector((state) => state.posts.data)
@@ -15,15 +15,15 @@ const Feed = () => {
 
 
 
-  // const fetchPosts = async () => {
-  //   const res = await fetch('https://devgram-7dnk.vercel.app/api/post',{cache: 'no-store'});
-  //   const data = await res.json();
-  //   setPosts(data)
-  // }
+  const fetchPosts = async () => {
+    const res = await fetch('/api/post', { cache: 'no-store' });
+    const data = await res.json();
+    setPosts(data)
+  }
 
   useEffect(() => {
-    dispatch(fetchPosts())
-    //fetchPosts()
+    // dispatch(fetchPosts())
+    fetchPosts()
   }, [])
 
 
@@ -93,7 +93,7 @@ const Feed = () => {
         style={{ backgroundColor: darkmode ? '#1D2226' : 'white' }}
       />
       {
-        allPosts
+        posts
           .filter((post) => {
             return (
               post.text.toLowerCase().includes(search.toLowerCase()) ||
