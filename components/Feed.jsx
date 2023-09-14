@@ -101,14 +101,13 @@ const Feed = () => {
         style={{ backgroundColor: darkmode ? '#1D2226' : 'white' }}
       />
       {
-        posts
-          .filter((post) => {
-            return (
-              post.text.toLowerCase().includes(search.toLowerCase()) ||
-              handleHashtags(post.tag).toLowerCase().includes(search.toLowerCase()) ||
-              post.author.username.toLowerCase().includes(search.toLowerCase())
-            )
-          })
+        posts?.filter((post) => {
+          return (
+            post.text.toLowerCase().includes(search.toLowerCase()) ||
+            handleHashtags(post.tag).toLowerCase().includes(search.toLowerCase()) ||
+            post.author.username.toLowerCase().includes(search.toLowerCase())
+          )
+        })
           .map((el) => (
             <PostCard
               key={el._id}
