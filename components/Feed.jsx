@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { useState, useEffect } from 'react';
 import PostCard from './PostCard';
@@ -23,7 +24,7 @@ const Feed = () => {
   useEffect(() => {
     dispatch(fetchPosts())
     //fetchPosts()
-  }, [dispatch])
+  }, [])
 
 
 
