@@ -39,6 +39,7 @@ const CommentComponent = ({ userimg, username, text, likes, link, handleCommentL
         e.preventDefault();
         if (!session?.user) return alert('Sign in before replying comments.');
         setReply('');
+        setShowReplyInput(false);
         submitReply(commentID, reply);
     }
 
@@ -91,7 +92,7 @@ const CommentComponent = ({ userimg, username, text, likes, link, handleCommentL
                         <AiOutlineSend />
                     </button>
                 </form>
-                {
+                {   replies.length >= 3 &&
                     !showReplies &&
                     replies.length > 0 &&
                     <div className="show_replies">
@@ -100,20 +101,32 @@ const CommentComponent = ({ userimg, username, text, likes, link, handleCommentL
                     </div>
                 }
                 {
-                    showReplies &&
-                    replies.length > 0 &&
-                    replies.map((reply) => (
-                        <ReplyComponent
-                            key={reply._id}
-                            reply={reply}
-                            replyHandler={() => replyHandler(reply.author.username)}
-                            handleReplyLikes={handleReplyLikes}
-                            commentID={commentID}
-                        />
-                    ))
+                    replies.length < 3 ? (
+                        replies?.map((reply) => (
+                            <ReplyComponent
+                                key={reply._id}
+                                reply={reply}
+                                replyHandler={() => replyHandler(reply.author.username)}
+                                handleReplyLikes={handleReplyLikes}
+                                commentID={commentID}
+                            />
+                        ))
+                    ) : (
+                        showReplies &&
+                        replies?.map((reply) => (
+                            <ReplyComponent
+                                key={reply._id}
+                                reply={reply}
+                                replyHandler={() => replyHandler(reply.author.username)}
+                                handleReplyLikes={handleReplyLikes}
+                                commentID={commentID}
+                            />
+                        ))
+                    )
                 }
 
                 {
+                    replies.length >= 3 &&
                     showReplies &&
                     <div className="hide_replies">
                         <div className="line"></div>

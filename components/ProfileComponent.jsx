@@ -119,7 +119,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete, handleFollow, han
           tabIndex === 2 && (
             <div className="following_container">
               {
-                following.map((el) => {
+                following?.map((el) => {
                   return (
                     <FollowerComponent key={el._id} userInfo={el} checkHandleFollow={checkHandleFollow} />
                   )
