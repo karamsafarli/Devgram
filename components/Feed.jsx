@@ -5,6 +5,7 @@ import PostCard from './PostCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts } from '@redux/features/postslice';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
 const Feed = () => {
 
   const [posts, setPosts] = useState([]);
@@ -16,9 +17,16 @@ const Feed = () => {
 
 
   const fetchPosts = async () => {
-    const res = await fetch('/api/post', { cache: 'no-store' });
-    const data = await res.json();
-    setPosts(data)
+    // const res = await fetch('/api/post', { cache: 'no-cache' });
+    // const data = await res.json();
+
+    try {
+      const res = await axios.get('/api/post');
+      const data = res.data
+      setPosts(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
