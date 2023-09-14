@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import Form from '@components/Form';
 import { fetchPosts } from '@redux/features/postslice';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,7 @@ const CreatePost = () => {
   const { data: session } = useSession();
 
   const makePost = async (e) => {
+    if(!session.user) return redirect('/');
     e.preventDefault();
 
     setSubmitting(true);
