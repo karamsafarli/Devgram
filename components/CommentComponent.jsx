@@ -39,8 +39,8 @@ const CommentComponent = ({ userimg, username, text, likes, link, handleCommentL
         e.preventDefault();
         if (!session?.user) return alert('Sign in before replying comments.');
         setReply('');
-        setShowReplyInput(false);
         submitReply(commentID, reply);
+        setShowReplyInput(false);
     }
 
 
