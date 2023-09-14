@@ -6,7 +6,7 @@ import { fetchPosts } from '@redux/features/postslice';
 import { useSession } from 'next-auth/react';
 const Feed = () => {
 
- // const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const darkmode = useSelector((state) => state.colorThemeReducer.value);
   const allPosts = useSelector((state) => state.posts.data)
@@ -31,7 +31,7 @@ const Feed = () => {
 
   const handleTagClick = (tag) => {
     setSearch(tag)
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
   const handleHashtags = (tags) => {
@@ -86,7 +86,7 @@ const Feed = () => {
 
       <input type="text"
         className='search_post'
-        onChange={(e) => setSearch(e.target.value.toLowerCase())}
+        onChange={(e) => setSearch(e.target.value)}
         value={search}
         placeholder='Search posts...'
         style={{ backgroundColor: darkmode ? '#1D2226' : 'white' }}
@@ -95,9 +95,9 @@ const Feed = () => {
         allPosts
           .filter((post) => {
             return (
-              post.text.toLowerCase().includes(search) ||
-              handleHashtags(post.tag).toLowerCase().includes(search) ||
-              post.author.username.toLowerCase().includes(search)
+              post.text.toLowerCase().includes(search.toLowerCase()) ||
+              handleHashtags(post.tag).toLowerCase().includes(search.toLowerCase()) ||
+              post.author.username.toLowerCase().includes(search.toLowerCase())
             )
           })
           .map((el) => (
