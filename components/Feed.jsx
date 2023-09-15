@@ -21,8 +21,8 @@ const Feed = () => {
     // const data = await res.json();
 
     try {
-      const res = await axios.get('/api/post');
-      const data = res.data
+      const res = await fetch('/api/post', {cache: 'no-store'});
+      const data = await res.json()
       setPosts(data)
     } catch (error) {
       console.log(error)
