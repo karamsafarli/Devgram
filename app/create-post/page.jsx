@@ -20,7 +20,7 @@ const CreatePost = () => {
   const { data: session } = useSession();
 
   const makePost = async (e) => {
-    if(!session.user) return redirect('/');
+    if (!session.user) return redirect('/');
     e.preventDefault();
 
     setSubmitting(true);
@@ -28,6 +28,7 @@ const CreatePost = () => {
     try {
       const res = await fetch('/api/post/new', {
         method: 'POST',
+        cache: 'no-store',
         body: JSON.stringify({
           userId: session?.user.id,
           text: post.text,
